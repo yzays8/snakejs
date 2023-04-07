@@ -69,12 +69,11 @@ class SnakeGame {
   }
 
   #updateSnake() {
-    // either dx or dy has to be 0
-    const head = {x: this.#snake[0].x + this.#dx, y: this.#snake[0].y + this.#dy};
+    const head = {x: this.#snake[0].x + this.#dx, y: this.#snake[0].y + this.#dy};  // either dx or dy has to be 0
     this.#snake.unshift(head);
     // console.log(this.#foodX, this.#foodY, this.#snake[0].x, this.#snake[0].y);
     if (this.#snake[0].x === this.#foodX && this.#snake[0].y === this.#foodY) {
-      this.score += 1;
+      ++this.score;
       document.getElementById('score').innerHTML = this.score;
       this.#createFood();
     }else {
@@ -118,17 +117,22 @@ class SnakeGame {
   }
 
   #didEnd() {
-    for (let i = 4; i < this.#snake.length; ++i) {
-      if ((this.#snake[0].x === this.#snake[i].x && this.#snake[0].y === this.#snake[i].y)) {
-        return true;
-      }
-    }
+    // check if the snake collided with itself
     if ((this.#snake[0].x < 0)
       || (this.#snake[0].x > this.#width - GRID_SIZE)
       || (this.#snake[0].y < 0)
       || (this.#snake[0].y > this.#height - GRID_SIZE)) {
       return true;
     }
+
+    // check if the snake collided with a wall
+    for (let i = 4; i < this.#snake.length; ++i) {
+      if ((this.#snake[0].x === this.#snake[i].x && this.#snake[0].y === this.#snake[i].y)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
 
