@@ -117,7 +117,7 @@ class SnakeGame {
   }
 
   #didEnd() {
-    // check if the snake collided with itself
+    // check if the snake collided with a wall
     if ((this.#snake[0].x < 0)
       || (this.#snake[0].x > this.#width - GRID_SIZE)
       || (this.#snake[0].y < 0)
@@ -125,7 +125,7 @@ class SnakeGame {
       return true;
     }
 
-    // check if the snake collided with a wall
+    // check if the snake collided with itself
     for (let i = 4; i < this.#snake.length; ++i) {
       if ((this.#snake[0].x === this.#snake[i].x && this.#snake[0].y === this.#snake[i].y)) {
         return true;
